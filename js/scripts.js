@@ -1,41 +1,50 @@
 
+
+//let li = $('<li></li>');
+let i = 0;
 function newItem() {
 
-    //jQuery
-    //1. Adding a new item to the list of items: 
-    let li = $('<li></li>');
+    console.log('add');
+
+
     let inputValue = $('#input').val();
-    li.append(inputValue);
+    //li.append(inputValue);
+
 
     if (inputValue === '') {
         alert("You must write something!");
     } else {
-        $('#list').append(li);
+        // $('#list').append(li);
+
+        let elem = "li" + i
+        $('#list').append('<li ondblclick="crossOut(\'' + elem + '\')" id="' + elem + '">' + inputValue + ' <button  onclick="deleteListItem(\'' + elem + '\')" class="trashBtn"><i class = "fa fa-trash"></i></button></li>')
+        i = i + 1;
     }
 
-    //2. Crossing out an item from the list of items:
-    function crossOut() {
-        li.toggleClass("strike");
-    }
 
-    li.on("dblclick", function crossOut() {
-        li.toggleClass("strike");
-    });
 
-    //3(i). Adding the delete button "X": 
-    let crossOutButton = $('<button class="trashBtn"><i class = "fa fa-trash"></i></button>');
-    li.append(crossOutButton);
 
-    //3(ii). Adding CLASS DELETE (DISPLAY: NONE) from the css:
-    crossOutButton.on("click", deleteListItem);
-    function deleteListItem() {
-        li.addClass("delete")
-    }
 
     // 4. Reordering the items: 
     $('#list').sortable();
 
 }
+
+function deleteListItem(element) {
+
+    $('#' + element).addClass("delete");
+
+}
+
+function crossOut(element) {
+    $('#' + element).toggleClass("strike");
+}
+
+
+/*
+li.on("dblclick", function crossOut() {
+    // li.toggleClass("strike");
+});*/
 
 
 
